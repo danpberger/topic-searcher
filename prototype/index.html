@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Summit Navigator Prototype</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand__eyebrow">APS Global Physics Summit</div>
+        <h1 class="brand__title">Summit Navigator</h1>
+      </div>
+      <div class="header-actions">
+        <div class="view-toggle" role="group" aria-label="View toggle">
+          <button class="view-toggle__button is-active" data-view="list">
+            <span>Timeline</span>
+          </button>
+          <button class="view-toggle__button" data-view="grid">
+            <span>Cards</span>
+          </button>
+        </div>
+        <button class="ghost-button" type="button">My Saved Plan</button>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="filters" aria-label="Schedule filters">
+        <section class="filter-card">
+          <h2>Focus your view</h2>
+          <div class="filter-search">
+            <label class="visually-hidden" for="filter-search-input"
+              >Search topics and speakers</label
+            >
+            <input
+              id="filter-search-input"
+              type="search"
+              placeholder="Search topics, speakers, tags"
+            />
+            <button type="button" class="icon-button" aria-label="Search">
+              🔍
+            </button>
+          </div>
+          <div class="filter-pills" role="list">
+            <button class="pill is-active" data-chip="quantum">Quantum Tech</button>
+            <button class="pill" data-chip="astro">Astrophysics</button>
+            <button class="pill" data-chip="ai">AI &amp; Data</button>
+            <button class="pill" data-chip="career">Career</button>
+          </div>
+        </section>
+
+        <section class="filter-card">
+          <header class="filter-card__header">
+            <h3>Days</h3>
+            <button class="reset-link" data-reset="day">Reset</button>
+          </header>
+          <nav class="day-swimlane" aria-label="Select day">
+            <button class="day-swimlane__item is-active" data-day="2025-03-15">
+              Sat 15
+              <span>42 events</span>
+            </button>
+            <button class="day-swimlane__item" data-day="2025-03-16">
+              Sun 16
+              <span>37 events</span>
+            </button>
+            <button class="day-swimlane__item" data-day="2025-03-17">
+              Mon 17
+              <span>58 events</span>
+            </button>
+            <button class="day-swimlane__item" data-day="2025-03-18">
+              Tue 18
+              <span>64 events</span>
+            </button>
+            <button class="day-swimlane__item" data-day="2025-03-19">
+              Wed 19
+              <span>51 events</span>
+            </button>
+          </nav>
+        </section>
+
+        <section class="filter-card">
+          <header class="filter-card__header">
+            <h3>Quick filters</h3>
+            <button class="reset-link" data-reset="quick">Clear</button>
+          </header>
+          <div class="filter-grid">
+            <label class="toggle">
+              <input type="checkbox" data-filter="livestream" checked />
+              <span>Live stream</span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" data-filter="family" />
+              <span>Family friendly</span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" data-filter="requires-registration" />
+              <span>Requires registration</span>
+            </label>
+            <label class="toggle">
+              <input type="checkbox" data-filter="networking" />
+              <span>Networking</span>
+            </label>
+          </div>
+        </section>
+
+        <section class="filter-card">
+          <header class="filter-card__header">
+            <h3>Topics</h3>
+            <button class="reset-link" data-reset="topics">All topics</button>
+          </header>
+          <div class="topic-groups">
+            <details open>
+              <summary>Highlighted clusters</summary>
+              <div class="cluster-tags">
+                <button class="tag" data-topic="quantum-information">
+                  Quantum Information (32)
+                </button>
+                <button class="tag" data-topic="strong-field">
+                  Strong-field Phenomena (18)
+                </button>
+                <button class="tag" data-topic="materials">
+                  Advanced Materials (45)
+                </button>
+                <button class="tag" data-topic="education">Education (27)</button>
+              </div>
+            </details>
+            <details>
+              <summary>A–F</summary>
+              <ul class="topic-list">
+                <li><button data-topic="astrophysics">Astrophysics</button></li>
+                <li><button data-topic="biophysics">Biophysics</button></li>
+                <li><button data-topic="condensed-matter">Condensed Matter</button></li>
+                <li><button data-topic="dark-matter">Dark Matter</button></li>
+                <li><button data-topic="education-outreach">Education &amp; Outreach</button></li>
+              </ul>
+            </details>
+            <button class="see-all" type="button">Browse all 500 topics</button>
+          </div>
+        </section>
+
+        <section class="filter-card">
+          <header class="filter-card__header">
+            <h3>Saved filters</h3>
+            <button class="reset-link" data-reset="saved">Manage</button>
+          </header>
+          <div class="saved-filters">
+            <button class="saved-filter">
+              <span class="saved-filter__title">Early career morning</span>
+              <span class="saved-filter__meta">Mon–Tue • 9am–12pm</span>
+            </button>
+            <button class="saved-filter">
+              <span class="saved-filter__title">Quantum + networking</span>
+              <span class="saved-filter__meta">Any day • in-person</span>
+            </button>
+          </div>
+        </section>
+      </aside>
+
+      <main class="schedule" aria-label="Filtered schedule">
+        <section class="schedule-header">
+          <div>
+            <h2>Saturday, March 15</h2>
+            <p>Showing 12 of 42 events • Filters: Quantum Tech, Live stream</p>
+          </div>
+          <div class="schedule-actions">
+            <button class="icon-button" aria-label="Collapse all">
+              ▾
+            </button>
+            <button class="ghost-button" type="button">Export day</button>
+          </div>
+        </section>
+
+        <ol class="timeline" role="list">
+          <li class="timeline__group" data-time="07:00">
+            <div class="timeline__time">07:00</div>
+            <article class="event-card" data-topic="quantum-information">
+              <header>
+                <div class="event-card__meta">
+                  <span class="event-card__type">Short Course</span>
+                  <span class="event-card__location">Room A • Hybrid</span>
+                </div>
+                <h3>Quantum Jubilee: Frontiers of Entanglement</h3>
+              </header>
+              <p class="event-card__description">
+                Kick off the summit with a curated lightning tour of breakthroughs in
+                quantum sensing, computing, and communication with interactive demos.
+              </p>
+              <dl class="event-card__tags">
+                <div><dt>Speakers</dt><dd>Dr. Ngozi Udeh, Dr. Mateo Alvarez</dd></div>
+                <div><dt>Topics</dt><dd>Quantum Information, Education &amp; Outreach</dd></div>
+              </dl>
+              <footer class="event-card__footer">
+                <button class="ghost-button">Add to plan</button>
+                <div class="event-card__labels">
+                  <span class="label">Live stream</span>
+                  <span class="label">Hands-on</span>
+                </div>
+              </footer>
+            </article>
+          </li>
+
+          <li class="timeline__group" data-time="09:30">
+            <div class="timeline__time">09:30</div>
+            <article class="event-card" data-topic="strong-field">
+              <header>
+                <div class="event-card__meta">
+                  <span class="event-card__type">Mission</span>
+                  <span class="event-card__location">Hall C • In-person</span>
+                </div>
+                <h3>Mission: Save the Memory Core</h3>
+              </header>
+              <p class="event-card__description">
+                An interactive, story-driven workshop that blends plasma physics
+                puzzles with team-based challenges.
+              </p>
+              <dl class="event-card__tags">
+                <div><dt>Speakers</dt><dd>Dr. Priya Raman</dd></div>
+                <div><dt>Topics</dt><dd>Strong-field Phenomena, Education</dd></div>
+              </dl>
+              <footer class="event-card__footer">
+                <button class="ghost-button">Add to plan</button>
+                <div class="event-card__labels">
+                  <span class="label label--warning">Separate registration</span>
+                </div>
+              </footer>
+            </article>
+
+            <article class="event-card" data-topic="ai">
+              <header>
+                <div class="event-card__meta">
+                  <span class="event-card__type">Short Course</span>
+                  <span class="event-card__location">Room D • Hybrid</span>
+                </div>
+                <h3>Designing Quantum-Safe Data Pipelines</h3>
+              </header>
+              <p class="event-card__description">
+                Learn how large observatories are hardening scientific data flows and
+                AI models against quantum-era vulnerabilities.
+              </p>
+              <dl class="event-card__tags">
+                <div><dt>Speakers</dt><dd>Prof. Xia Li, Dr. Henry Silva</dd></div>
+                <div><dt>Topics</dt><dd>AI &amp; Data, Security</dd></div>
+              </dl>
+              <footer class="event-card__footer">
+                <button class="ghost-button">Add to plan</button>
+                <div class="event-card__labels">
+                  <span class="label">Live stream</span>
+                  <span class="label">Hands-on</span>
+                </div>
+              </footer>
+            </article>
+          </li>
+
+          <li class="timeline__group" data-time="12:00">
+            <div class="timeline__time">12:00</div>
+            <article class="event-card" data-topic="networking">
+              <header>
+                <div class="event-card__meta">
+                  <span class="event-card__type">Meetup</span>
+                  <span class="event-card__location">The Terrace • In-person</span>
+                </div>
+                <h3>Women in Quantum Luncheon</h3>
+              </header>
+              <p class="event-card__description">
+                A facilitated networking lunch highlighting mentorship pairings and
+                accelerator funding opportunities.
+              </p>
+              <dl class="event-card__tags">
+                <div><dt>Speakers</dt><dd>Hosted by Quantum Futures Collective</dd></div>
+                <div><dt>Topics</dt><dd>Career, Networking</dd></div>
+              </dl>
+              <footer class="event-card__footer">
+                <button class="ghost-button">Add to plan</button>
+                <div class="event-card__labels">
+                  <span class="label">Networking</span>
+                  <span class="label">Catered</span>
+                </div>
+              </footer>
+            </article>
+          </li>
+
+          <li class="timeline__group" data-time="15:00">
+            <div class="timeline__time">15:00</div>
+            <article class="event-card" data-topic="ai">
+              <header>
+                <div class="event-card__meta">
+                  <span class="event-card__type">Panel</span>
+                  <span class="event-card__location">Main Ballroom • Hybrid</span>
+                </div>
+                <h3>Bridging Simulation &amp; Experiment in Quantum Materials</h3>
+              </header>
+              <p class="event-card__description">
+                An expert panel explores how cross-lab teams are sharing models and
+                experimental data for faster iteration.
+              </p>
+              <dl class="event-card__tags">
+                <div><dt>Speakers</dt><dd>Panel with four national lab leads</dd></div>
+                <div><dt>Topics</dt><dd>AI &amp; Data, Advanced Materials</dd></div>
+              </dl>
+              <footer class="event-card__footer">
+                <button class="ghost-button">Add to plan</button>
+                <div class="event-card__labels">
+                  <span class="label">Live stream</span>
+                  <span class="label">Panel</span>
+                </div>
+              </footer>
+            </article>
+          </li>
+        </ol>
+      </main>
+
+      <aside class="glance" aria-label="Day overview">
+        <section class="glance-card">
+          <h3>At a glance</h3>
+          <ul>
+            <li>
+              <span class="glance-card__label">Morning</span>
+              <span class="glance-card__value">4 sessions</span>
+            </li>
+            <li>
+              <span class="glance-card__label">Afternoon</span>
+              <span class="glance-card__value">5 sessions</span>
+            </li>
+            <li>
+              <span class="glance-card__label">Evening</span>
+              <span class="glance-card__value">3 sessions</span>
+            </li>
+          </ul>
+        </section>
+        <section class="glance-card">
+          <h3>Recently viewed</h3>
+          <ol>
+            <li>Quantum Jubilee</li>
+            <li>Women in Quantum Luncheon</li>
+            <li>Mission: Save the Memory Core</li>
+          </ol>
+        </section>
+        <section class="glance-card">
+          <h3>Need a break?</h3>
+          <p>
+            Use the break finder to align lunch or coffee with your colleagues. Slots
+            open at 12:30 and 15:45.
+          </p>
+          <button class="ghost-button">Find a break</button>
+        </section>
+      </aside>
+    </div>
+
+    <div class="floating-bar" role="region" aria-label="Active filters">
+      <span>Active filters:</span>
+      <div class="chips">
+        <button class="chip">Quantum Tech ×</button>
+        <button class="chip">Live stream ×</button>
+        <button class="chip">Sat 15 ×</button>
+      </div>
+      <button class="reset-link">Clear all</button>
+    </div>
+
+    <template id="topic-modal-template">
+      <dialog class="modal" aria-labelledby="topic-modal-title">
+        <form method="dialog">
+          <header class="modal__header">
+            <h2 id="topic-modal-title">Browse all topics</h2>
+            <button class="icon-button" value="cancel" aria-label="Close">✕</button>
+          </header>
+          <div class="modal__body">
+            <div class="modal__search">
+              <label class="visually-hidden" for="topic-search">Search topics</label>
+              <input id="topic-search" type="search" placeholder="Search 500 topics" />
+              <span class="modal__hint">Type to filter or jump with alphabet index.</span>
+            </div>
+            <div class="modal__columns">
+              <nav class="alphabet" aria-label="Topic index">
+                <a href="#topic-a">A</a>
+                <a href="#topic-b">B</a>
+                <a href="#topic-c">C</a>
+                <a href="#topic-d">D</a>
+                <a href="#topic-e">E</a>
+                <a href="#topic-f">F</a>
+                <a href="#topic-g">G</a>
+                <a href="#topic-h">H</a>
+                <a href="#topic-i">I</a>
+                <a href="#topic-j">J</a>
+                <a href="#topic-k">K</a>
+                <a href="#topic-l">L</a>
+                <a href="#topic-m">M</a>
+                <a href="#topic-n">N</a>
+                <a href="#topic-o">O</a>
+                <a href="#topic-p">P</a>
+                <a href="#topic-q">Q</a>
+                <a href="#topic-r">R</a>
+                <a href="#topic-s">S</a>
+                <a href="#topic-t">T</a>
+                <a href="#topic-u">U</a>
+                <a href="#topic-v">V</a>
+                <a href="#topic-w">W</a>
+                <a href="#topic-x">X</a>
+                <a href="#topic-y">Y</a>
+                <a href="#topic-z">Z</a>
+              </nav>
+              <div class="topic-results" role="list">
+                <section id="topic-a" aria-label="Topics starting with A">
+                  <h3>A</h3>
+                  <ul>
+                    <li><button>Accelerator Science</button></li>
+                    <li><button>Advanced Manufacturing</button></li>
+                    <li><button>Astrophysics</button></li>
+                    <li><button>Atomic Clocks</button></li>
+                  </ul>
+                </section>
+                <section id="topic-b" aria-label="Topics starting with B">
+                  <h3>B</h3>
+                  <ul>
+                    <li><button>Beam Dynamics</button></li>
+                    <li><button>Biophysics</button></li>
+                    <li><button>Black Holes</button></li>
+                    <li><button>Bloch Oscillations</button></li>
+                  </ul>
+                </section>
+                <section id="topic-s" aria-label="Topics starting with S">
+                  <h3>S</h3>
+                  <ul>
+                    <li><button>Soft Matter</button></li>
+                    <li><button>Spintronics</button></li>
+                    <li><button>Strong-field Phenomena</button></li>
+                    <li><button>Superconductivity</button></li>
+                  </ul>
+                </section>
+              </div>
+            </div>
+          </div>
+          <footer class="modal__footer">
+            <button class="ghost-button" value="cancel">Cancel</button>
+            <button class="primary-button" value="apply">Apply topics</button>
+          </footer>
+        </form>
+      </dialog>
+    </template>
+
+    <script src="script.js" type="module"></script>
+  </body>
+</html>
